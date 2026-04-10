@@ -1,11 +1,11 @@
 # Salary Prediction Application
 
-End-to-end ML assignment solution built around a **Decision Tree regressor**, a **FastAPI prediction service**, an **Ollama-powered analyst narrative**, **Supabase persistence**, and a **Streamlit dashboard**.
+End-to-end ML assignment solution built around a **Random Forest regressor**, a **FastAPI prediction service**, an **Ollama-powered analyst narrative**, **Supabase persistence**, and a **Streamlit dashboard**.
 
 ## What this project includes
 
 - Dataset cleaning and model training pipeline
-- Decision Tree regression model for salary prediction in USD
+- Random Forest regression model for salary prediction in USD
 - GET-based FastAPI endpoint with input validation
 - Python client that exercises multiple combinations of valid inputs
 - LLM analysis layer using Ollama, with a deterministic fallback if Ollama is unavailable
@@ -116,7 +116,7 @@ The dashboard reads prediction history from Supabase only. The form can trigger 
 ## Notes
 
 - The Ollama step falls back to a deterministic analyst summary if the local model is unavailable.
-- For unseen job titles, the API defaults to `Data Scientist` so the pipeline still returns a prediction instead of failing.
+- For unseen job titles, the API maps the title into a broader normalized role bucket or falls back to `other` so the pipeline still returns a prediction instead of failing.
 - The `/predict` route returns the prediction response only; `/predict/full` includes narrative generation, chart creation, and Supabase persistence.
 
 ## Deliverables checklist

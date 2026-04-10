@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import requests
 
-from src.config import CHARTS_DIR, OLLAMA_BASE_URL, OLLAMA_MODEL
+from src.config import CHARTS_DIR, OLLAMA_BASE_URL, OLLAMA_MODEL, OLLAMA_TIMEOUT_SECONDS
 
 
 def create_salary_chart(history: list[dict], run_id: str) -> str:
@@ -69,7 +69,7 @@ def generate_llm_analysis(current_record: dict, history: list[dict]) -> str:
         response = requests.post(
             f'{OLLAMA_BASE_URL}/api/generate',
             json={'model': OLLAMA_MODEL, 'prompt': json.dumps(prompt), 'stream': False},
-            timeout=30,
+            timeout=OLLAMA_TIMEOUT_SECONDS,
         )
         response.raise_for_status()
         data = response.json()

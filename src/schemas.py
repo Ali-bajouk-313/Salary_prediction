@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 ExperienceLevel = Literal['EN', 'EX', 'MI', 'SE']
 EmploymentType = Literal['CT', 'FL', 'FT', 'PT']
@@ -27,10 +27,12 @@ class PredictionInput(BaseModel):
     @field_validator('job_title')
     @classmethod
     def normalize_title(cls, value: str) -> str:
-        return ' '.join(value.split())
+        return ' '.join(value.replace('_', ' ').split())
 
 
 class PredictionResponse(BaseModel):
+    model_config = ConfigDict(protected_namespaces=())
+
     input_data: PredictionInput
     predicted_salary_usd: float
     model_version: str

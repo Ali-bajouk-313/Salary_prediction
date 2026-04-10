@@ -5,11 +5,11 @@ from pathlib import Path
 
 import joblib
 from sklearn.compose import ColumnTransformer
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder
-from sklearn.tree import DecisionTreeRegressor
 
 from src.config import METADATA_PATH, METRICS_PATH, MODEL_PATH
 from src.preprocess import CATEGORICAL_COLUMNS, NUMERIC_COLUMNS, prepare_training_data
@@ -34,7 +34,16 @@ def train_model(random_state: int = 42) -> dict:
     model = Pipeline(
         steps=[
             ('preprocessor', preprocessor),
-            ('regressor', DecisionTreeRegressor(max_depth=12, min_samples_leaf=3, random_state=random_state)),
+            (
+                'regressor',
+                RandomForestRegressor(
+                    n_estimators=300,
+                    max_depth=20,
+                    min_samples_leaf=2,
+                    n_jobs=1,
+                    random_state=random_state,
+                ),
+            ),
         ]
     )
     model.fit(X_train, y_train)
