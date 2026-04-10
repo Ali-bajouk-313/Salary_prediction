@@ -1,7 +1,12 @@
-streamlit
 pandas
 numpy
 scikit-learn
 joblib
-python-dotenv
+fastapi
+uvicorn
+pydantic
+requests
+matplotlib
+streamlit
 supabase
+python-dotenv
